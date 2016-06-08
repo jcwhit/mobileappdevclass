@@ -1,0 +1,41 @@
+li {
+    list-style: none;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.cellFruit {
+    border: 2px solid black;
+    height: 90px;
+    display: inline-block;
+    background-color: red;
+    width: 120px;
+    text-align: center;
+}
+
+.cellMeat {
+    border: 4px solid black;
+    height: 90px;
+    display: inline-block;
+    background-color: aqua;
+    width: 120px;
+    text-align: center;
+}
+
+.cellFlower {
+    border: 4px solid black;
+    height: 90px;
+    display: inline-block;
+    background-color: yellow;
+    width: 120px;
+    text-align: center;
+}
+
+button {
+    text-align: center;
+    width: 475px;
+    display: block;
+    height: 50px;
+    background-color: darkgray;
+    border: 1px solid grey;
+}
