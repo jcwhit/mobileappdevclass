@@ -1,0 +1,47 @@
+.table {
+    margin: auto;
+    /*centers horizontally*/
+    display: table;
+}
+
+.row {
+    display: table-row;
+}
+
+.tableheader {}
+
+#display {
+    display: none;
+}
+
+.namecellOne {
+    text-align: left;
+    background-color: red;
+    display: table-cell;
+    border: 1px solid black;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    padding-right: 10px;
+}
+
+.placecellOne {
+    text-align: left;
+    background-color: aqua;
+    display: table-cell;
+    border: 1px solid black;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    padding-right: 10px;
+}
+
+.thingcellOne {
+    text-align: left;
+    background-color: yellow;
+    display: table-cell;
+    border: 1px solid black;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    padding-right: 10px;
+}
+
+.namecellTwo {}

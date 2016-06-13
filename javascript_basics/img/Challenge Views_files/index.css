@@ -1,0 +1,33 @@
+.table {
+    margin: auto;
+    /*centers horizontally*/
+    display: table;
+}
+
+.row {
+    display: table-row;
+}
+
+.cell {
+    display: table-cell;
+    border: 1px solid black;
+    padding-bottom: 30px;
+    padding-top: 30px;
+}
+
+.tableheader {}
+
+.name.One {
+    text-align: left;
+    background-color: red;
+}
+
+.place.One {
+    text-align: left;
+    background-color: aqua;
+}
+
+.thing.One {
+    text-align: left;
+    background-color: yellow;
+}

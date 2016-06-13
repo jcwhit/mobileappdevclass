@@ -1,0 +1,27 @@
+div {
+    margin: auto;
+    /*centers horizontally*/
+    border: 1px solid black;
+}
+
+.row {
+    display: table-row;
+    width: 100px;
+}
+
+ul {
+    width: 100px;
+    border: 1px solid black;
+}
+
+#display {
+    display: none;
+}
+
+.tableheader {}
+
+.namecellOne {}
+
+.placecellOne {}
+
+.thingcellOne {}
