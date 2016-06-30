@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.css" />
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <script src="js/index.js"></script>
+    <script src="https:/maps.googleapis.com/maps/api/js?key=AIzaSyCFppZ4g6hfM_Kq83_8cxh7-qOFnFnaX3w"></script>
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
+
+    <title>WhereAmI?</title>
+</head>
+
+
+<body>
+    <h1>Where Am I?</h1>
+    <button id="btnLocation" onclick="getLocation();">Get Location</button>
+    <button id="btnClear" onclick="clearScreen();">Clear</button>
+    <div id="results"></div>
+    <div id="mapCanvas"></div>
+</body>
+
+</html>
