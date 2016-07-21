@@ -1,0 +1,61 @@
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.wordpress.jacksonwhitley" version="1.0.0">
+    <name>SomeOtherSun</name>
+    <description>Some Other Sun is an action packed role playing game for you and a group of friends.</description>
+    <author href="http://jacksonwhitley.wordpress.com" email="jacksoncwhitey@gmail.com">Jaxon Games</author>
+    <content src="index.html" />
+    <preference name="DisallowOverscroll" value="true" />
+    <preference name="android-minSdkVersion" value="14" />
+    <preference name="AutoHideSplashScreen" value="true" />
+    <preference name="SplashScreenDelay" value="5000" />
+    <plugin name="cordova-plugin-battery-status" source="npm" spec="~1.1.1" />
+    <plugin name="cordova-plugin-camera" source="npm" spec="~2.1.1" />
+    <plugin name="cordova-plugin-media-capture" source="npm" spec="~1.2.0" />
+    <plugin name="cordova-plugin-console" source="npm" spec="~1.0.2" />
+    <plugin name="cordova-plugin-contacts" source="npm" spec="~2.0.1" />
+    <plugin name="cordova-plugin-device" source="npm" spec="~1.1.1" />
+    <plugin name="cordova-plugin-device-motion" source="npm" spec="~1.2.0" />
+    <plugin name="cordova-plugin-device-orientation" source="npm" spec="~1.0.2" />
+    <plugin name="cordova-plugin-dialogs" source="npm" spec="~1.2.0" />
+    <plugin name="cordova-plugin-file" source="npm" spec="~4.1.1" />
+    <plugin name="cordova-plugin-file-transfer" source="npm" spec="~1.5.0" />
+    <plugin name="cordova-plugin-geolocation" source="npm" spec="~2.1.0" />
+    <plugin name="cordova-plugin-globalization" source="npm" spec="~1.0.3" />
+    <plugin name="cordova-plugin-inappbrowser" source="npm" spec="~1.3.0" />
+    <plugin name="cordova-plugin-media" source="npm" spec="~2.2.0" />
+    <plugin name="cordova-plugin-network-information" source="npm" spec="~1.2.0" />
+    <plugin name="cordova-plugin-splashscreen" source="npm" spec="~3.2.1" />
+    <plugin name="cordova-plugin-statusbar" source="npm" spec="~2.1.2" />
+    <plugin name="cordova-plugin-vibration" source="npm" spec="~2.1.0" />
+    <plugin name="cordova-plugin-whitelist" source="npm" spec="~1.2.1" />
+    <icon src="www/icon.png" />
+    <platform name="android">
+        <icon src="res/icon/android/icon-36-ldpi.png" density="ldpi" />
+        <icon src="res/icon/android/drawable-mdpi-icon.png" density="mdpi" />
+        <icon src="res/icon/android/drawable-hdpi-icon.png" density="hdpi" />
+        <icon src="res/icon/android/drawable-xhdpi-icon.png" density="xhdpi" />
+        <icon src="res/icon/android/drawable-xxhdpi-icon.png" density="xxhdpi" />
+        <icon src="res/icon/android/drawable-xxxhdpi-icon.png" density="xxxhdpi" />
+        <splash src="res/screen/android/drawable-land-ldpi-screen.png" density="land-ldpi" />
+        <splash src="res/screen/android/drawable-land-mdpi-screen.png" density="land-mdpi" />
+        <splash src="res/screen/android/drawable-land-hdpi-screen.png" density="land-hdpi" />
+        <splash src="res/screen/android/drawable-land-xhdpi-screen.png" density="land-xhdpi" />
+        <splash src="res/screen/android/screen-ldpi-portrait.png" density="port-ldpi" />
+        <splash src="res/screen/android/screen-mdpi-portrait.png" density="port-mdpi" />
+        <splash src="res/screen/android/screen-hdpi-portrait.png" density="port-hdpi" />
+        <splash src="res/screen/android/screen-xhdpi-portrait.png" density="port-xhdpi" />
+    </platform>
+    <access origin="*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+    <platform name="android">
+        <allow-intent href="market:*" />
+    </platform>
+    <platform name="ios">
+        <allow-intent href="itms:*" />
+        <allow-intent href="itms-apps:*" />
+    </platform>
+</widget>

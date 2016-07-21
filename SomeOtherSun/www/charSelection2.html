@@ -1,3 +1,6 @@
+<!--This is old code for the char selection screen, I hope to come back to it and allow for multiple characters-->
+
+
 <!DOCTYPE html>
 <!--
     Copyright (c) 2012-2016 Adobe Systems Incorporated. All rights reserved.
@@ -51,12 +54,18 @@
             <div data-role="header" data-position="fixed">
                 <h1>Main</h1>
             </div>
-            <a href="#charSheet" class="ui-btn" rel="external">Character Selection</a>
+            <a href="#charSheet" class="ui-btn" rel="external">Character Sheet</a>
             <a href="#primer" class="ui-btn">Rules</a>
         </div>
         <div data-role="page" id="charSheet">
             <div data-role="header" data-postion="fixed">
                 <h1> Character Sheet</h1>
+                <div data-role="navbar" class="nav">
+                    <ul>
+                        <li><a href="#" class="ui-btn ui-state-persist">Sheet</a></li>
+                        <li><a href="#diceRoller">Dice Roller</a></li>
+                    </ul>
+                </div>
             </div>
             <div role="main" class="ui-content">
                 <div id="nameBlock">
@@ -115,6 +124,47 @@
                 </div>
             </div>
         </div>
+        <div data-role="page" id="diceRoller">
+            <div data-role="header" data-position="fixed">
+                <h1>Dice Roller</h1>
+                <div data-role="navbar" class="nav">
+                    <ul>
+                        <li><a href="#charSheet">Sheet</a></li>
+                        <li><a href="#" class="ui-btn ui-state-persist">Dice Roller</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div role="main" class="ui-content">
+                <button id="btnInit" for="initiative" onclick="rollInitiative();">Initiative</button>
+                <input type="number" id="initiativeRoll" placeholder="result" readonly/>
+                <button id="btnMelee" for="rollMel" onclick="rollMelee();">Melee Attack</button>
+                <input type="number" id="rollMel" placeholder="result" readonly/>
+                <button id="btnRange" for="rollRange" onclick="rollRange();">Range Attack</button>
+                <input type="number" id="rollRange" placeholder="result" readonly/>
+                <div id='rollAny'>
+                    <label for="any">Dice</label>
+                    <select id="any">
+                        <option value="2">D2</option>
+                        <option value="4">D4</option>
+                        <option value="6">D6</option>
+                        <option value="8">D8</option>
+                        <option value="10">D10</option>
+                        <option value="12">D12</option>
+                        <option value="20">D20</option>
+                        <option value="100">D100</option>
+                    </select>
+                    <button id="btnAnyRoll" onclick="rollAny();">Roll Any</button>
+                    <input type="number" id="rollAnyInput" placeholder="result" readonly/>
+                </div>
+            </div>
+            <div data-role="footer" data-position="fixed">
+                <div data-role="navbar" class="nav">
+                    <ul>
+                        <li><a href="#main">Main</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
         <div data-role="page" id="primer">
             <div data-role="header" data-position="fixed">
                 <h1>Primer</h1>
@@ -135,7 +185,6 @@
                 <div data-role="navbar" class="nav">
                     <ul>
                         <li><a href="#main">Main</a></li>
-
                     </ul>
                 </div>
             </div>
@@ -235,7 +284,6 @@
                 <div data-role="navbar" class="nav">
                     <ul>
                         <li><a href="#main">Main</a></li>
-
                     </ul>
                 </div>
             </div>
@@ -494,7 +542,6 @@
                 <div data-role="navbar" class="nav">
                     <ul>
                         <li><a href="#main">Main</a></li>
-
                     </ul>
                 </div>
             </div>

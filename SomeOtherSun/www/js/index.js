@@ -36,6 +36,8 @@ function init() {
             "beef": 1,
             "sense": 1,
             "nerves": 1,
+            "totalHealth": 5,
+            "currentHealth": 5,
             "damage": "",
             "abilities": ""
         };
@@ -43,11 +45,34 @@ function init() {
     }
 }
 
+function rollInitiative() {
+    var charInfo = JSON.parse(localStorage.getItem('char'));
+    var init = document.getElementById('initiativeRoll');
+    init.value = ((Math.floor(Math.random() * 20) + 1) + parseInt(charInfo.nerves) + parseInt(charInfo.repdiff));
+}
+
+function rollMelee() {
+    var charInfo = JSON.parse(localStorage.getItem('char'));
+    var melee = document.getElementById('rollMel');
+    melee.value = ((Math.floor(Math.random() * 20) + 1) + parseInt(charInfo.beef) + parseInt(charInfo.repdiff));
+}
+
+function rollRange() {
+    var charInfo = JSON.parse(localStorage.getItem('char'));
+    var range = document.getElementById('rollRange');
+    range.value = ((Math.floor(Math.random() * 20) + 1) + parseInt(charInfo.sense) + parseInt(charInfo.repdiff));
+}
+
+function rollAny() {
+    var rollAny = document.getElementById('rollAnyInput');
+    var selected = parseInt($('#any').val());
+    rollAny.value = (Math.floor(Math.random() * selected) + 1);
+}
+
 $(document).on('pagebeforeshow', '#charSheet', function () {
     var charInfo = JSON.parse(localStorage.getItem('char'));
-    console.log(charInfo);
+
     if (charInfo.charName.length > 2) {
-        console.log('with name');
         //char name
         var charName = document.getElementById('name');
         charName.value = charInfo.charName;
@@ -72,8 +97,11 @@ $(document).on('pagebeforeshow', '#charSheet', function () {
         //nerves
         var nerves = document.getElementById('nerves');
         nerves.value = charInfo.nerves;
+        //health
+        var healthCurrent = document.getElementById('health');
+        healthCurrent.value = charInfo.currentHealth;
     } else {
-        console.log('without name');
+        //char name
         var charName = document.getElementById('name');
         charName.value = 'name';
         //rep
@@ -97,13 +125,20 @@ $(document).on('pagebeforeshow', '#charSheet', function () {
         //nerves
         var nerves = document.getElementById('nerves');
         nerves.value = 1;
+        //health
 
     }
 
     //combat block
     var comBlock = document.getElementById('comBlock');
+    //health
+    var healthLab = document.getElementById('healthLab');
     //clear for new data
     comBlock.innerHTML = "";
+    healthLab.innerHTML = "";
+
+    //health
+    healthLab.appendChild(document.createTextNode('Health: ' + charInfo.totalHealth));
     //melee
     var melee = document.createElement('h3');
     var melVal = charInfo.beef + charInfo.repdiff;
@@ -136,7 +171,6 @@ $(document).on('pagebeforeshow', '#charSheet', function () {
     //do function for saving new char data
     $('#btnSaveCharSheet').click(function () {
 
-        console.log('start save');
         var charInfo = JSON.parse(localStorage.getItem('char'));
         var charName = document.getElementById('name');
         charInfo.charName = charName.value;
@@ -145,6 +179,15 @@ $(document).on('pagebeforeshow', '#charSheet', function () {
         charInfo.goodRep = goodRep.value;
         var badRep = document.getElementById('badRep');
         charInfo.badRep = badRep.value;
+
+        //rep diff and total
+        if (charInfo.goodRep > charInfo.badRep) {
+            charInfo.repdiff = charInfo.goodRep - charInfo.badRep;
+        }
+
+        if (charInfo.goodRep < charInfo.badRep) {
+            charInfo.repdiff = charInfo.badRep - charInfo.goodRep;
+        }
 
         //stats
         //grit
@@ -163,6 +206,10 @@ $(document).on('pagebeforeshow', '#charSheet', function () {
         var nerves = document.getElementById('nerves');
         charInfo.nerves = nerves.value;
 
+        //health
+        var healthCurr = document.getElementById('health');
+        charInfo.currentHealth = healthCurr.value;
+
         //ability
         var ability = document.getElementById('abilDataField');
         charInfo.abilities = $('#abilDataField').val();
@@ -171,6 +218,14 @@ $(document).on('pagebeforeshow', '#charSheet', function () {
         var selected = $('#dmg').val();
         charInfo.damage = selected;
 
+        localStorage.setItem('char', JSON.stringify(charInfo));
+        location.reload();
+    });
+
+    $('#btnSetTHel').click(function () {
+        var charInfo = JSON.parse(localStorage.getItem('char'));
+        var health = document.getElementById('health');
+        charInfo.totalHealth = health.value;
         localStorage.setItem('char', JSON.stringify(charInfo));
         location.reload();
     });

@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<!--
+    Copyright (c) 2012-2016 Adobe Systems Incorporated. All rights reserved.
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.css" />
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <script src="js/index.js"></script>
+
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
+    <!-- Good default declaration:
+    * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+    * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+    * Disables use of eval() and inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+        * Enable inline JS: add 'unsafe-inline' to default-src
+        * Enable eval(): add 'unsafe-eval' to default-src
+    * Create your own at http://cspisawesome.com
+    -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
+    <title>SomeOtherSun</title>
+</head>
+
+<body>
+    <div class="app">
+        <div data-role="page" id="main">
+            <div data-role="header" data-position="fixed">
+                <h1>Main</h1>
+            </div>
+            <a href="#charSheet" class="ui-btn" rel="external">Character Sheet</a>
+            <a href="#primer" class="ui-btn">Rules</a>
+        </div>
+        <div data-role="page" id="charSheet">
+            <div data-role="header" data-postion="fixed">
+                <h1> Character Sheet</h1>
+                <div data-role="navbar" class="nav">
+                    <ul>
+                        <li><a href="#" class="ui-btn ui-state-persist">Sheet</a></li>
+                        <li><a href="#diceRoller">Dice Roller</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div role="main" class="ui-content">
+                <div id="nameBlock">
+                    <label for="name"> Name:
+                    </label>
+                    <input type="text" id="name" />
+                </div>
+                <h1> Reputation</h1>
+                <div id="repBlock">
+                    <label for="goodRep"> Good Rep:</label>
+                    <input type="number" id="goodRep" />
+                    <label for="badRep"> Bad Rep: </label>
+                    <input type="number" id="badRep" />
+                </div>
+                <h1> Stats </h1>
+                <div id="statBlock">
+                    <label for="grit"> Grit: </label>
+                    <input type="number" id="grit" />
+                    <label for="smarts"> Smarts: </label>
+                    <input type="number" id="smarts" />
+                    <label for="beef"> Beef: </label>
+                    <input type="number" id="beef" />
+                    <label for="sense"> Sense: </label>
+                    <input type="number" id="sense" />
+                    <label for="nerves"> Nerves: </label>
+                    <input type="number" id="nerves" />
+                </div>
+                <h1> Combat </h1>
+                <div id="healthBlock">
+                    <label id="healthLab" for="health"></label>
+                    <input type="number" id="health" placeholder="current Health" />
+                    <button id="btnSetTHel">Set Total Health</button>
+                </div>
+                <div id="comBlock"> </div>
+                <h1> Abilities </h1>
+                <div id="abilBlock">
+                    <label for="abilDataField"> Abilities: </label>
+                    <textarea id="abilDataField" class="ui-input-text" cols="40" rows="8"> </textarea>
+                </div>
+                <div id="damageBlock">
+                    <h1>Damage</h1>
+                    <h3 id="dmgDice"></h3>
+                    <label for="dmg">Dice</label>
+                    <select id="dmg">
+                        <option value="d4">D4</option>
+                        <option value="d6">D6</option>
+                        <option value="d8">D8</option>
+                        <option value="d10">D10</option>
+                        <option value="d12">D12</option>
+                    </select>
+                </div>
+                <div id="save">
+                    <button id="btnSaveCharSheet"> Save </button>
+                </div>
+            </div>
+            <div data-role="footer" data-position="fixed">
+                <div data-role="navbar" class="nav">
+                    <ul>
+                        <li> <a href="#main"> Main </a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div data-role="page" id="diceRoller">
+            <div data-role="header" data-position="fixed">
+                <h1>Dice Roller</h1>
+                <div data-role="navbar" class="nav">
+                    <ul>
+                        <li><a href="#charSheet">Sheet</a></li>
+                        <li><a href="#" class="ui-btn ui-state-persist">Dice Roller</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div role="main" class="ui-content">
+                <button id="btnInit" for="initiative" onclick="rollInitiative();">Initiative</button>
+                <input type="number" id="initiativeRoll" placeholder="result" readonly/>
+                <button id="btnMelee" for="rollMel" onclick="rollMelee();">Melee Attack</button>
+                <input type="number" id="rollMel" placeholder="result" readonly/>
+                <button id="btnRange" for="rollRange" onclick="rollRange();">Range Attack</button>
+                <input type="number" id="rollRange" placeholder="result" readonly/>
+                <div id='rollAny'>
+                    <label for="any">Dice</label>
+                    <select id="any">
+                        <option value="2">D2</option>
+                        <option value="4">D4</option>
+                        <option value="6">D6</option>
+                        <option value="8">D8</option>
+                        <option value="10">D10</option>
+                        <option value="12">D12</option>
+                        <option value="20">D20</option>
+                        <option value="100">D100</option>
+                    </select>
+                    <button id="btnAnyRoll" onclick="rollAny();">Roll Any</button>
+                    <input type="number" id="rollAnyInput" placeholder="result" readonly/>
+                </div>
+            </div>
+            <div data-role="footer" data-position="fixed">
+                <div data-role="navbar" class="nav">
+                    <ul>
+                        <li><a href="#main">Main</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div data-role="page" id="primer">
+            <div data-role="header" data-position="fixed">
+                <h1>Primer</h1>
+                <div data-role="navbar" class="nav">
+                    <ul>
+                        <li><a href="#" class="ui-btn ui-state-persist">Primer</a></li>
+                        <!--                        <li><a href="#archetypes">Archetypes</a></li>-->
+                        <!--                        <li><a href="#weapons">Weapons</a></li>-->
+                        <li><a href="#character">Character</a></li>
+                        <li><a href="#combat">Combat</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div role="main" class="ui-content">
+                <p>Some other Sun is an easy to pick up role playing game system that focuses on a character’s weapon instead of the character themselves. Character creation is a point system with players starting out with a 100 points to spend on their weapon. The point values range with the most effective options are the most expensive.</p>
+                <p>The game is played using a twenty sided dice for actions and other dice for weapon damage.</p>
+            </div>
+            <div data-role="footer" data-position="fixed">
+                <div data-role="navbar" class="nav">
+                    <ul>
+                        <li><a href="#main">Main</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--Primer-->
+        <div data-role="page" id="combat">
+            <div data-role="header" data-position="fixed">
+                <h1>Combat</h1>
+                <div data-role="navbar" class="nav">
+                    <ul>
+                        <li><a href="#primer">Primer</a></li>
+                        <!--                        <li><a href="#archetypes">Archetypes</a></li>-->
+                        <!--                        <li><a href="#weapons">Weapons</a></li>-->
+                        <li><a href="#character">Character</a></li>
+                        <li><a href="#" class="ui-btn ui-state-persist">Combat</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div role="main" class="ui-content">
+                <h1>Steps</h1>
+                <div>
+                    0) Resolve surprise attacks.</br>
+                    1) Take initiatives.</br>
+                    2) Highest initiative goes first.</br>
+                    3) Resolve actions:</br>
+                    <ul class="ruleList">
+                        <li>Movement or Reaction</li>
+                        <li>Attack or Ability</li>
+                        <li>Easy actions</li>
+                    </ul>
+                    4) Go to next initiative and repeat 3 until last initiative and jump back to 2.</br>
+                </div>
+                </br>
+                <div>Look below for a more descriptive explanation of each step.</div>
+                <h1>Combat Zones</h1>
+                <div id="combatZones">
+                    Combat zones represent areas of combat. They dictate the range of weapons and melee combat.
+                    <ul class="ruleList">
+                        <li>To attack in melee, the target needs to be in the same area as the attacking character. </li>
+                        <li>To make a ranged attack, the target needs to be within effective range of the weapon and have line of sight of the target.</li>
+                    </ul>
+                    A zone should include information such as:</br>
+                    <ul class="ruleList">
+                        <li>Cover</li>
+                        <li>Items</li>
+                        <li>Border to show the area</li>
+                    </ul>
+                    Zones should be divided into effective sizes and have large areas divided into smaller zones.</br> ZONE PICTURES TO COME
+                </div>
+                <div>
+                    <button id="btnSA">Surprise Attacks</button>
+                    <script>
+                        $(document).ready(function () {
+                            $("#btnSA").click(function () {
+                                $("#supriseAttacks").toggle();
+                            });
+                            $("#btnIn").click(function () {
+                                $("#initiative").toggle();
+                            });
+                            $("#btnAct").click(function () {
+                                $("#actions").toggle();
+                            });
+                            $('div.steps').hide();
+                        });
+                    </script>
+                    <div id="supriseAttacks" class="steps">
+                        <p>Surprise attacks occur when the target is totally unaware of your presence. The attacker doubles their rep bonus to the hit role. This can also occur after initiatives have been determined. (Example).</p>
+                    </div>
+                    <button id="btnIn">Initiative</button>
+                    <div id="initiative" class="steps">
+                        <p>Initiative is called when combat has begun and the GM has called for it. It is a d20 + Nerves score + Rep + other bonuses.</br> This represents how ready to act a player or enemy is. It determines play order. </p>
+                    </div>
+                    <button id="btnAct">Actions</button>
+                    <div id="actions" class="steps">
+                        <h1>Movement and Reaction</h1>
+                        <p>Each round(after all initiatives have gone) a character can either choose to move the number of zones on their character sheet or use their reaction.</br> Reactions: attack a character leaving the zone you are in, perform a reaction only action, hide(d20+sense+rep), take cover, or use an item. </p>
+                        <h1>Attack or Ability</h1>
+                        <div>Attack:</br>
+                            <div class="smInd"> Melee: d20 + beef + rep* VS Target Toughness</br> Ranged: d20 + sense + rep* VS Target Toughness</br>
+                            </div>
+                            Ability:</br>
+                            <div class="smInd">
+                                Perform an ability from an archetype or character description.
+                            </div>
+                            Other:</br>
+                            <div class="smInd">
+                                Persuading or intimidating a character.</br>
+                                Reloading a weapon.
+                            </div>
+                        </div>
+                        <h1>Easy Actions</h1>
+                        <p> Easy actions are actions that don't require much effort such as; talking to a party member, handing an item to a party member in the same zone as you, etc.</p>
+                    </div>
+                </div>
+            </div>
+            <div data-role="footer" data-position="fixed">
+                <div data-role="navbar" class="nav">
+                    <ul>
+                        <li><a href="#main">Main</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--combat-->
+        <div data-role="page" id="archetypes">
+            <div data-role="header" data-position="fixed">
+                <h1>Archetypes</h1>
+                <div data-role="navbar" class="nav">
+                    <ul>
+                        <li><a href="#primer">Primer</a></li>
+                        <li><a href="#" class="ui-btn ui-state-persist">Archetypes</a> </li>
+                        <li><a href="#weapons">Weapons</a></li>
+                        <li><a href="#character">Character</a></li>
+                        <li><a href="#combat">Combat</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div role="main" class="ui-content">
+                <!--Might do this through js to make use of the <select> tag-->
+                <!--With jquery collapseable-->
+                <div>
+                    <div>
+                        <!--onclick="document.getElementById('bulletbarian').style.display ='block'"-->
+                        <button id="btnBB">Bulletbarian</button>
+                        <script>
+                            $(document).ready(function () {
+                                $("#btnBB").click(function () {
+                                    $("#bulletbarian").toggle();
+                                });
+                                $("#btnMg").click(function () {
+                                    $("#magi").toggle();
+                                });
+                                $("#btnLm").click(function () {
+                                    $("#loudMan").toggle();
+                                });
+                                $("#btnAc").click(function () {
+                                    $("#ace").toggle();
+                                });
+                                $('div.arche').hide();
+                            });
+                        </script>
+                    </div>
+                    <div id="bulletbarian" class="arche">
+                        <h1>Bulletbarian</h1>
+                        <div>
+                            <p>-Focus on firing a lot of bullets at all of the enemies </br>
+                                -Like machine guns and long walks on the beach</br>
+                            </p>
+                            <p class="health">HP: 10pts per rep(both types) + beef</p>
+                            Rep Bonuses:</br>
+                            <div>
+                                1) +1 to Nerves</br>
+                                Hail of Bullets: can lay down fire on a zone, anyone in that zone :</br>
+                                <div class="smInd">
+                                    -move out of zone: Nerve test: damage on fail continue on success</br>
+                                    -actions out of cover: Nerve test same as above</br>
+                                </div>
+                                2) +1 to Beef </br>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button id="btnMg">Magi</button>
+                    </div>
+                    <div id="magi" class="arche">
+                        <h1>Magi</h1>
+                        <div>
+                            <p>
+                                -Specialize in unique rounds that they craft themselves</br>
+                                -Focus on Books to craft</br>
+                                <p class="health">HP-INC: 6 pts per rep(both types) + beef</p>
+                                Rep Bonuses:</br>
+                                <div>
+                                    1) +1 to Smarts a. Craft bullets of their choice can be anything, affect dice is d6 </br>
+                                    <div class="smInd">
+                                        i. Affect dice: what is rolled for when the crafted round takes affect </br>
+                                        ii. Affect dice increase by 2 every 2 level in total rep to a maximum of a d12</br>
+                                    </div>
+                                    2) +1 to Sense</br>
+                                </div>
+                            </p>
+                        </div>
+                    </div>
+                    <div>
+                        <button id="btnLm">LoudMan</button>
+                    </div>
+                    <div id="loudMan" class="arche">
+                        <h1>LoudMan</h1>
+                        <div>
+                            <p>-Specialize in demolition weapons</p>
+                            <p class="health">HP-INC: 8pts per rep(both types) + beef</p>
+                            Rep Bonuses:</br>
+                            <div>
+                                1) +1 to Beef</br>
+                                <div class="smInd">
+                                    a. Can craft an improvised explosive that can be launched or thrown. Can craft and hold up to their rep level in improvised explosives each day. The affect die for this is a d6 and effects up to a small sized zone. The range and die increases every 2 rep. Affect die increases by 2 to a maximum of a d10. Range increases to the size of a medium zone at rep bonus 3 and to a large zone at rep bonus 5.
+                                </div>
+                                </br>
+                                2) +1 to Nerves
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button id="btnAc">Ace</button>
+                    </div>
+                    <div id="ace" class="arche">
+                        <h1>Ace</h1>
+                        <p>-Specialize in large single target damage</p>
+                        <p class="health">HP-INC: 6pts per rep(both types) + Sense</p>
+                        Rep Bonuses:</br>
+                        <div>
+                            1) +1 to Sense</br>
+                            <div class="smInd">
+                                a. Can mark a target to deal an additional d4 of damage to from you the damage increases by 2 every 2 rep to a max of a d12.
+                            </div>
+                            </br>
+                            2) +1 to Nerves
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Archetypes-->
+        <div data-role="page" id="weapons">
+            <div data-role="header" data-position="fixed">
+                <h1>Weapons</h1>
+                <div data-role="navbar" class="nav">
+                    <ul>
+                        <li><a href="#primer">Primer</a></li>
+                        <!--                        <li><a href="#archetypes">Archetypes</a> </li>-->
+                        <li><a href="#" class="ui-btn ui-state-persist">Weapons</a></li>
+                        <li><a href="#character">Character</a></li>
+                        <li><a href="#combat">Combat</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div role="main" class="ui-content">
+                <!--Might do this through js to make use of the <select> tag-->
+                <p id="wPOne">Weapons in Some Other Sun make the character. All stats are generated when the weapon is created. </br> Players will have 100 point to spend on weapon creation.</br> More powerful bonuses require more points.</p>
+                Example:</br>
+                <p>Jimmy is a revolver carrying son of a gun. His weapon is able to fire several different types of calibers and rounds. Jimmy’s has taken on the role of an Ace, which is role that specializes in focusing on large amounts of damage to a single target. </p>
+                The Gun:</br>
+                <p class="smInd">-10 shot magazine: 10 pts</br>
+                    -Dynamic chamber: any standard small arms round can be shot from it 10pts</br>
+                    -QuickLink sights: able to take accurate shots quickly +1 to sense 20pts</br>
+                    -Calligraphic name inscription: ornate decoration that is appealing +1 to Grit 20pts</br>
+                    -Advanced rifling: +1 to sense 20 pts </br>
+                    -Smokey Black Paint: +1 to grit 20pts</br>
+                </p>
+                Final Stats:</br>
+                <p class="smInd">
+                    Grit: 2</br>
+                    Smarts: 0</br>
+                    Beef: 0</br>
+                    Sense: 2</br>
+                    Nerves: 0</br>
+                </p>
+                <p>Players are only limited to their imagination. Guns can shoot lighting shurikens if they want. Or a rocket launcher that shoots missiles that explode into acid.</p>
+            </div>
+        </div>
+        <!--weapons-->
+        <div data-role="page" id="character">
+            <div data-role="header" data-position="fixed">
+                <h1>Character</h1>
+                <div data-role="navbar" class="nav">
+                    <ul>
+                        <li><a href="#primer">Primer</a></li>
+                        <!--                        <li><a href="#archetypes">Archetypes</a></li>-->
+                        <!--                        <li><a href="#weapons">Weapons</a></li>-->
+                        <li><a href="#" class="ui-btn ui-state-persist">Character</a></li>
+                        <li><a href="#combat">Combat</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div role="main" class="ui-content">
+                <script>
+                    $(document).ready(function () {
+                        $("#btnSt").click(function () {
+                            $("#stats").toggle();
+                        });
+                        $("#btnWe").click(function () {
+                            $("#weapon").toggle();
+                        });
+                        $('div.char').hide();
+                    });
+                </script>
+
+                <button id="btnSt">Stats</button>
+
+                <div id="stats" class="char">
+                    <div>
+                        <h1>Reputation</h1> Street cred, this is added to each roll and represents character advancement. All players start a reputation 1.</br>
+                        <div>
+                            <ul class="ruleList">
+                                <li>reputation is computed as the difference of good rep and bad rep</li>
+                                <li>rep = the higher of the two - the lower of the two</li>
+                                <li>players start out by picking which one will start at 1</li>
+                                <li>good rep is gained by doing good deeds</li>
+                                <li>bad rep is gained by doing evil deeds</li>
+                                <li>increases are determined by the GM and should be increase only by significant acts</li>
+                            </ul>
+                        </div>
+
+                    </div>
+                    <div>
+                        <h1>Stats:</h1></br>
+                        *Grit: this is your stat for social</br>
+                        </br>
+
+                        *Smarts: books, how knowledgeable about the universe</br>
+                        <div class="smInd">
+                            -history, science, languages</br>
+                        </div>
+                        </br>
+                        *Beef: how stronk</br>
+                        </br>
+
+                        *Sense: how well you can hit or notice something</br>
+                        </br>
+
+                        *Nerves: how quickly you react; initiative, dodging, etc.
+
+                    </div>
+                    <div>
+                        <h1>Combat:</h1> -Melee: Beef + rep</br>
+                        </br> -Ranged: Sense + rep</br>
+                        </br> -Toughness: Armor + Nerves or Beef</br>
+                        </br> -Mobility: nerves/2 = # of zones can move in a turn </br>
+                        </br> -Health Points = a d8+beef for each increase to rep total. For rep total one 5+d8+beef
+                    </div>
+                    <div>
+                        <h1>Abilities:</h1> Created from weapon creation.
+
+                        <h1>All other skills:</h1> Character background.
+
+                    </div>
+                </div>
+
+
+                <button id="btnWe">Weapon</button>
+
+                <div id="weapon" class="char">
+                    <p id="wPOne">Weapons in Some Other Sun make the character. All stats are generated when the weapon is created. </br> Players will have 100 point to spend on weapon creation.</br> More powerful bonuses require more points.</p>
+                    <h3>Point Costs:</h3>
+                    <ul class="ruleList">
+                        <li>Stat Increase: 20pts</li>
+                        <li>Capacity: 1pt/round</li>
+                        <li>Damage: d4 for 0pts then increases by 2 for every 10 pts</li>
+                        <li>Ability: 30pts</li>
+                        <li>Effect: 10pts</li>
+                    </ul>
+                    Example:</br>
+                </div>
+            </div>
+            <div data-role="footer" data-position="fixed">
+                <div data-role="navbar" class="nav">
+                    <ul>
+                        <li><a href="#main">Main</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

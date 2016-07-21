@@ -1,3 +1,5 @@
+//This is old code for the char selection screen, I hope to come back to it and allow for multiple characters
+
 var bool = false;
 //this will store the initial space for the character
 function storeInitChar() {
