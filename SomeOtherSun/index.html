@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <!--
     Copyright (c) 2012-2016 Adobe Systems Incorporated. All rights reserved.
-
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -9,9 +8,7 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-
     http://www.apache.org/licenses/LICENSE-2.0
-
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -54,8 +51,69 @@
             <div data-role="header" data-position="fixed">
                 <h1>Main</h1>
             </div>
-            <a href="charSelection.html" class="ui-btn" rel="external">Character Selection</a>
+            <a href="#charSheet" class="ui-btn" rel="external">Character Selection</a>
             <a href="#primer" class="ui-btn">Rules</a>
+        </div>
+        <div data-role="page" id="charSheet">
+            <div data-role="header" data-postion="fixed">
+                <h1> Character Sheet</h1>
+            </div>
+            <div role="main" class="ui-content">
+                <div id="nameBlock">
+                    <label for="name"> Name:
+                    </label>
+                    <input type="text" id="name" />
+                </div>
+                <h1> Reputation</h1>
+                <div id="repBlock">
+                    <label for="goodRep"> Good Rep:</label>
+                    <input type="number" id="goodRep" />
+                    <label for="badRep"> Bad Rep: </label>
+                    <input type="number" id="badRep" />
+                </div>
+                <h1> Stats </h1>
+                <div id="statBlock">
+                    <label for="grit"> Grit: </label>
+                    <input type="number" id="grit" />
+                    <label for="smarts"> Smarts: </label>
+                    <input type="number" id="smarts" />
+                    <label for="beef"> Beef: </label>
+                    <input type="number" id="beef" />
+                    <label for="sense"> Sense: </label>
+                    <input type="number" id="sense" />
+                    <label for="nerves"> Nerves: </label>
+                    <input type="number" id="nerves" />
+                </div>
+                <h1> Combat </h1>
+                <div id="comBlock"> </div>
+                <h1> Abilities </h1>
+                <div id="abilBlock">
+                    <label for="abilDataField"> Abilities: </label>
+                    <textarea id="abilDataField" class="ui-input-text" cols="40" rows="8"> </textarea>
+                </div>
+                <div id="damageBlock">
+                    <h1>Damage</h1>
+                    <h3 id="dmgDice"></h3>
+                    <label for="dmg">Dice</label>
+                    <select id="dmg">
+                        <option value="d4">D4</option>
+                        <option value="d6">D6</option>
+                        <option value="d8">D8</option>
+                        <option value="d10">D10</option>
+                        <option value="d12">D12</option>
+                    </select>
+                </div>
+                <div id="save">
+                    <button id="btnSaveCharSheet"> Save </button>
+                </div>
+            </div>
+            <div data-role="footer" data-position="fixed">
+                <div data-role="navbar" class="nav">
+                    <ul>
+                        <li> <a href="#main"> Main </a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
         <div data-role="page" id="primer">
             <div data-role="header" data-position="fixed">
@@ -362,7 +420,6 @@
                         $("#btnWe").click(function () {
                             $("#weapon").toggle();
                         });
-
                         $('div.char').hide();
                     });
                 </script>
